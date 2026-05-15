@@ -44,7 +44,7 @@ Through this assignment, I practiced:
 
 You can view the project here:
 
-https://MohamedOsama1907.github.io/Assignment-2/
+https://abdallahroshdy-dev.github.io/my-frontend-portfolio/Project-1-FitCore-Gym
 
 
 ## 📁 Project Structure
@@ -60,7 +60,7 @@ Assignment-2
 
 ## 👨‍💻 Author
 
-**Mohamed Osama**
+**Abdallah Roshdy**
 Frontend Development Student at Route Academy
 
 ---
