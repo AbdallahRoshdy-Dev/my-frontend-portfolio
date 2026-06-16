@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Title Page -->
+    <title>Document</title>
+    <!--FavIcon  -->
+    <link rel="shortcut icon" href="./Images/" type="image/x-icon" />
+    <!--  -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Font -->
+    <link rel="stylesheet" href="./CSS/all.min.css" />
+    <!--BootStrap -->
+    <link rel="stylesheet" href="./CSS/bootstrap.min.css" />
+    <!-- Main Style Sheet -->
+    <link rel="stylesheet" href="./CSS/style.css" />
+    <!-- Media Query -->
+    <link rel="stylesheet" href="./CSS/media.css" />
+  </head>
+  <body>
+    <section>
+      <div class="container">
+        <div class="crud-container bg-info p-3 rounded-3 mt-3">
+          <h2 class="text-center text-uppercase">crud system</h2>
+          <!-- productName -->
+          <div class="form-floating mb-3">
+            <input
+              oninput="validateInputs(this,'alertName')"
+              type="text"
+              class="form-control"
+              id="productName"
+              name="productName"
+              value=""
+              placeholder=""
+            />
+            <label for="productName" class="">productName</label>
+            <p id="alertName" class="alert alert-danger d-none">
+              It must start with a letter, be 3 to 20 characters long, and can
+              only contain letters, numbers, or underscores.
+            </p>
+          </div>
+          <!-- productPrice -->
+          <div class="form-floating mb-3">
+            <input
+              oninput="validateInputs(this,'alertPrice')"
+              type="number"
+              class="form-control"
+              id="productPrice"
+              name="productPrice"
+              value=""
+              placeholder=""
+            />
+            <label for="productPrice" class="">productPrice</label>
+            <p id="alertPrice" class="alert alert-danger d-none">
+              It should be a number with up to 10 digits before the decimal
+              point and up to 2 digits after the decimal (e.g., 100, 49.99,
+              1234567890.50)
+            </p>
+          </div>
+          <!-- productCategory -->
+          <div class="form-floating mb-3">
+            <input
+              oninput="validateInputs(this,'alertCategory')"
+              list="cat"
+              type="text"
+              class="form-control"
+              id="productCategory"
+              name="productCategory"
+              value=""
+              placeholder=""
+            />
+            <label for="productCategory" class="">productCategory</label>
+            <datalist id="cat">
+              <option value="tv" />
+              <option value="mobile" />
+              <option value="screens" />
+              <option value="electronic" />
+            </datalist>
+            <p id="alertCategory" class="alert alert-danger d-none">
+              It should be one of tv,mobile,screens or electronic.
+            </p>
+          </div>
+          <!-- productDescription -->
+          <div class="form-floating mb-3">
+            <textarea
+              oninput="validateInputs(this,'alertDescription')"
+              style="height: 100px"
+              class="form-control"
+              id="productDescription"
+              name="productDescription"
+              value=""
+              placeholder=""
+            ></textarea>
+            <label for="productDescription" class="">productDescription</label>
+            <p id="alertDescription" class="alert alert-danger d-none">
+              It should be one of tv,mobile,screens or electronic.
+            </p>
+          </div>
+          <!-- productImage -->
+          <div class="form-floating mb-3">
+            <input
+              onchange="validateInputs(this,'alertImage')"
+              type="file"
+              class="form-control pt-4"
+              id="productImage"
+              name="productImage"
+              value=""
+              placeholder=""
+            />
+            <label for="productImage" class="">productImage</label>
+            <p id="alertImage" class="alert alert-danger d-none">
+              It should be one of tv,mobile,screens or electronic.
+            </p>
+          </div>
+          <!-- btns -->
+          <button
+            id="btnAdd"
+            class="btn btn-primary btn-sm"
+            onclick="addProduct()"
+          >
+            Add Product
+          </button>
+          <button
+            onclick="updateItem()"
+            id="btnUpdate"
+            class="btn btn-warning btn-sm d-none"
+          >
+            Update Product
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="product-list">
+      <div class="container-fluid">
+        <input
+          oninput="searchItem()"
+          id="searchInput"
+          type="search"
+          class="form-control form-control-plaintext w-75 mx-auto my-3 text-center"
+          placeholder="Search By Name!"
+        />
+        <div class="row product-group g-4" id="row"></div>
+      </div>
+    </section>
+    <script src="./js/bootstrap.bundle.js"></script>
+    <script src="./js/main.js"></script>
+  </body>
+</html>
