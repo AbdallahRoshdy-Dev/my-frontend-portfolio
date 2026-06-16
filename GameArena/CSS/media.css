@@ -1,0 +1,12 @@
+/* @media screen and(max-width:1024px) {
+  #home {
+    .container {
+      .row {
+        .left-box,
+        .right-box {
+          width: 100%;
+        }
+      }
+    }
+  }
+} */
