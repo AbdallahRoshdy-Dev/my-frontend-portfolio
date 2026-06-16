@@ -1,0 +1,28 @@
+/* Mobile First Approach */
+
+/* Small devices (sm) - 576px and up */
+@media screen and (min-width: 576px) {
+  /* Tablets portrait */
+}
+
+/* Medium devices (md) - 768px and up */
+@media screen and (min-width: 768px) {
+  /* Tablets landscape */
+}
+
+/* Large devices (lg) - 992px and up */
+@media screen and (min-width: 992px) {
+  /* Desktops */
+}
+
+/* Extra large devices (xl) - 1200px and up */
+@media screen and (min-width: 1200px) {
+  /* Large desktops */
+}
+
+/* 2xl devices - 1400px and up */
+@media screen and (min-width: 1400px) {
+  /* Extra large screens */
+}
+
+

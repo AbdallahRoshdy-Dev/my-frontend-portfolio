@@ -1,0 +1,318 @@
+:root {
+  --main-color: #ff4e17;
+  --secondary-color: #ff6900;
+  --flame-scarlet-color: #fb2c36;
+  --radiant-azure-color: #2b7fff;
+  --peach-glow-color: #ffd6a7;
+  --vanilla-cream-color: #ffedd4;
+  --blush-mist-color: #fef2f2;
+  --rust-red-color: #b9634d;
+  --garnet-crimson-color: #9f0712;
+  --sunlit-ivory-color: #fffbea;
+  --snow-mist-color: #f9fafb;
+  --royal-blue-color: #144ae8;
+  --sky-breeze-color: #dbeafe;
+}
+
+/* padding & margin */
+.px-12 {
+  padding-inline: 0.75rem;
+}
+.py-12 {
+  padding-block: 0.75rem;
+}
+.py-32 {
+  padding-block: 2rem;
+}
+.p-40 {
+  padding: 2.5rem;
+}
+
+.mb-12 {
+  margin-bottom: 0.75rem;
+}
+.mb-32 {
+  margin-bottom: 2rem;
+}
+
+/* line-height */
+.lh-11 {
+  line-height: 1.111;
+}
+.lh-13 {
+  line-height: 1.333;
+}
+
+/* Font-size */
+.fs-12 {
+  font-size: 0.75rem;
+}
+
+.fs-14 {
+  font-size: 0.875rem;
+}
+.fs-18 {
+  font-size: 1.125rem;
+}
+.fs-20 {
+  font-size: 1.25rem;
+}
+.fs-36 {
+  font-size: 2.25rem;
+}
+
+/* sizes */
+.w-24 {
+  width: 24px;
+}
+.h-24 {
+  height: 24px;
+}
+.w-40 {
+  width: 40px;
+}
+.h-40 {
+  height: 40px;
+}
+.w-48 {
+  width: 48px;
+}
+.h-48 {
+  height: 48px;
+}
+/*  */
+.center-xy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* rounded */
+.rounded-12 {
+  border-radius: 12px;
+}
+.rounded-24 {
+  border-radius: 24px;
+}
+.rounded-start-24 {
+  border-top-left-radius: 24px;
+  border-bottom-left-radius: 24px;
+}
+
+/* text-color */
+.text-main {
+  color: var(--main-color);
+}
+.text-secondary {
+  color: var(--secondary-color) !important;
+}
+.text-flame {
+  color: var(--flame-scarlet-color);
+}
+.text-radiant {
+  color: var(--radiant-azure-color);
+}
+.text-garnet {
+  color: var(--garnet-crimson-color);
+}
+.text-royal {
+  color: var(--royal-blue-color);
+}
+
+/* Backgrounds */
+.bg-secondary {
+  background-color: var(--secondary-color) !important;
+}
+.bg-flame {
+  background-color: var(--flame-scarlet-color);
+}
+.bg-radiant {
+  background-color: var(--radiant-azure-color);
+}
+.bg-vanilla {
+  background-color: var(--vanilla-cream-color) !important;
+}
+.bg-blush {
+  background-color: var(--blush-mist-color);
+}
+.bg-sunlit {
+  background-color: var(--sunlit-ivory-color);
+}
+.bg-snow {
+  background-color: var(--snow-mist-color);
+}
+.bg-sky {
+  background-color: var(--sky-breeze-color);
+}
+/* ========================================================= */
+.main-navbar {
+  .container {
+    /* display: flex !important;
+    justify-content: space-between !important; */
+
+    .header-left {
+      /* هذه الخصائص يجب أن تكون موجودة في CSS لضمان عدم وجود مسافات إضافية */
+      max-width: fit-content;
+
+      .logo-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        background-color: var(--main-color);
+      }
+    }
+
+    .header-right {
+      .header-actions {
+        height: 20% !important;
+      }
+      .user-avatar-wrapper {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-color: #ff4d1749 !important;
+      }
+    }
+  }
+}
+
+.recipe-details-page {
+  .recipe-image-section {
+    background-image: url("../Images/default_meal.jpg");
+    background-position: center center;
+    background-size: cover;
+
+    /* border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px; 
+    equal to .overflow-hidden
+    */
+
+    .recipe-rating-badge {
+      width: fit-content;
+    }
+
+    .recipe-meta-info {
+      bottom: 32px;
+      left: 24px;
+      right: 24px;
+      margin: auto;
+    }
+  }
+
+  .recipe-content-section {
+    .recipe-tags {
+      .tag-difficulty-color {
+        color: #078847;
+      }
+      .tag-difficulty-bg {
+        background-color: #dbfce7;
+      }
+      .tag-cuisine-color {
+        color: var(--royal-blue-color);
+      }
+      .tag-cuisine-bg {
+        background-color: var(--sky-breeze-color);
+      }
+    }
+
+    .recipe-actions {
+      .btn-bookmark,
+      .btn-share {
+        transition: background-color 0.3s;
+      }
+      .btn-bookmark:hover,
+      .btn-share:hover {
+        background-color: var(--peach-glow-color) !important;
+      }
+    }
+
+    .alert.border-color {
+      border-left-color: var(--flame-scarlet-color) !important;
+    }
+
+    .recipe-tabs-container {
+      .ingredients,
+      .instructions,
+      .chef-tips {
+        max-height: 360px;
+        overflow-y: auto;
+        scroll-behavior: smooth;
+
+        /* #B9634D
+       
+        #FFDBD2 */
+      }
+
+      .nav-pills .nav-link.active,
+      .nav-pills .show > .nav-link {
+        color: var(--main-color) !important;
+        background-color: unset !important;
+      }
+
+      .nav-link {
+        position: relative;
+        color: unset !important;
+      }
+
+      .nav-link:hover {
+        color: black !important;
+      }
+
+      .nav-link.active::after {
+        content: "";
+        width: 100%;
+        height: 1.5px;
+        background-color: var(--main-color);
+        position: absolute;
+        top: 100%;
+        left: 0;
+      }
+
+      .carbohydrates-icon-color {
+        color: #d08700;
+      }
+
+      .carbohydrates-icon-bg {
+        background-color: #fef9c2;
+      }
+
+      .fiber-icon-color {
+        color: #00a63e;
+      }
+
+      .fiber-icon-bg {
+        background-color: #dbfce7;
+      }
+
+      .sodium-icon-color {
+        color: #e60076;
+      }
+
+      .sodium-icon-bg {
+        background-color: #fce7f3;
+      }
+
+      .tip-icon {
+        color: #e17100;
+      }
+    }
+  }
+
+  .footer {
+    .btn-try-another-recipe {
+      background-image: linear-gradient(
+        90deg,
+        var(--secondary-color),
+        var(--flame-scarlet-color)
+      );
+
+      transition: all 0.5s;
+    }
+
+    .btn-try-another-recipe:hover {
+      transform: scale(1.1);
+      background-image: linear-gradient(
+        90deg,
+        var(--main-color),
+        var(--flame-scarlet-color)
+      );
+    }
+  }
+}
