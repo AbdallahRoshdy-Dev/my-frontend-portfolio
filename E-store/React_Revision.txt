@@ -1,0 +1,438 @@
+problems of multiple JS files 
+How to apply modularity 
+  - can't use import 
+  - live server 
+  - just get specific item 
+How to create React app
+declaritve,state-driven,component-based
+file architecture
+root 
+Component 
+React and ReactDOM
+JSx 
+APP.jsx, main.jsx & index.html
+Having a full control
+Returning valid JSX
+React fragment 
+Writing JSX elements 
+using vars in JSX
+Displaying string, numbers, arrs, objs.
+Using expressions in jsx
+Adding elements props 
+Apply css 
+xml is a way to store data like JSON
+Binding 
+Events in JSX
+State component's brain 
+useState() 
+  - state mutation 
+Component hirarchy 
+Adding images to react component 
+JSX key prop 
+React Conditonal rendering && ||
+Event obj
+May take only one a parameter 
+Importing bootstrap 
+Where to imlement fn 
+steps to make a copy 
+  - filter 
+  - you can skip the structured colning by filter 
+css modules 
+Routing {Link, NavLink,RouterProvider, Outlet  }  
+  - Why can't use navbar before the RouterProvider
+comp life cycle [mounting, unmounting, updating ] 
+VDOM - React fibre - Stack reconciler - Fiber reconciler - Diffing alg - LOE 
+useEffect {setup, dependencies, cleanup, only once for calling the api, 
+  whenever dependent changes, run effect after every render no dependencies, run a cleanup fn,
+  to make it works only as CompDidUpdate, Never to put setState}
+Axios {get, network and http requests, will make blocking so use try and catch or then and catch,
+   body, headers, params }
+Can't reading from null 
+ {allProds === null ? loader : Product Element}
+React spinner 
+Steps to create any project 
+  - Create the project structure eg features and so on 
+  - Import the necessary libraries  
+  - Create the layout eg navbar, outlet and footer  
+  - create the routes directly inside routes.jsx  
+onSubmit vs onClick 
+DOM manipulation 
+controlled vs uncontrolled
+RHF vs Formik :{ useForm, handleSubmit, register, radio btns, required, minLength, reset, isDirty, isValid 
+  maxLength, pattern, valueAsDate, valueAsNumber, formState, defaultValues, setError, mode, validate, getValues, watch  }
+  {formStat.erros.registeredfiled && formStat.touchedFileds.registeredfiled && <p>formStat.erros.registeredfiled?.msg </>}
+grid, container && mx-auto, fonts, min-h-screen 
+Schema Validation ZOD {string, number, object, date, email, enum, min, max, refine, transform, gt, lt,
+ integrating zod with RHF, nonEmpty, coerce}
+###############################################
+
+// ❌ قديم
+zod.string().nonempty("required")
+
+// ✅ الصح
+zod.string().min(1, "required")
+
+// ❌ مفيش حاجة اسمها zod.email() أو zod.url() لوحدهم
+zod.email()
+zod.url()
+
+// ✅ لازم يبدأ بـ zod.string() الأول
+zod.string().email()
+zod.string().url()
+###############################################
+
+⚠️ بس فيه مشكلة في الـ errors
+الـ errors مش هتظهر على touchedFields لأنك بتستخدم Zod — الـ validation بيحصل على مستوى الـ form مش على مستوى كل field.
+الأفضل تشيل touchedFields وتعرض الـ errors دايماً:
+// ❌ 
+{errors.name && touchedFields.name && (
+  <p>{errors.name.message}</p>
+)}
+
+// ✅ أبسط وأصح مع Zod
+{errors.name && (
+  <p>{errors.name.message}</p>
+)}
+
+###############################################
+<button
+  type="submit"
+  className="bg-red-600 text-white rounded-md cursor-pointer font-medium py-2 px-4 my-2 mt-5 w-full disabled:opacity-50 disabled:cursor-not-allowed"
+  disabled={!(isDirty && isValid)}
+>
+  SignUp
+</button>
+
+
+ملاحظة مهمة ⚠️
+حط disabled:opacity-50 عشان يبين للـ user إن الـ button معطل:
+jsx// من غير disabled styles ← الـ button شكله مش بيتغير
+// مع disabled styles ← بيبان واضح إنه معطل
+className="... disabled:opacity-50 disabled:cursor-not-allowed"
+###############################################
+⚠️ مهم جداً
+لازم تحط mode: "onChange" في الـ useForm وإلا isValid مش هيشتغل صح:
+jsconst { register, handleSubmit, formState: { isValid, isDirty } } = useForm({
+  mode: "onChange", // أو "onBlur"
+  resolver: zodResolver(registeredSchema),
+});
+###############################################
+// ❌ navigate هيتنفذ فوراً قبل ما الـ API يرد
+axios.post(...).then(res => {
+  console.log(res.data);
+}).catch(err => {
+  console.log(err.message);
+});
+navigate("/"); // ← بيحصل على طول مش بعد النجاح
+
+// ✅ الصح
+axios.post(...).then(res => {
+  console.log(res.data);
+  navigate("/"); // ← بس لو نجح
+}).catch(err => {
+  console.log(err.message);
+});
+
+###############################################
+Register call API with axios + network tab 
+Navigate to login after successful registeration with useNavigate
+Reset after successful termination 
+###############################################
+  const [isSuccess, setIsSuccess] = useState(false); // for logging successfully will appear a congratulation msg
+  const [errorMsg, setErrorMsg] = useState(null); // for err
+  const [isLoading, setsLoading] = useState(flase);
+
+
+استخدامهم في الـ onSubmit
+function onSubmit(data) {
+  axios
+    .post("https://fakestoreapi.com/auth/login", data)
+    .then((res) => {
+      console.log(res.data);
+      setIsSuccess(true);  // ✅
+      setErrorMsg(null);   // امسح أي error قديم
+      navigate("/");
+    })
+    .catch((err) => {
+      setErrorMsg(err.message); // ✅
+      setIsSuccess(false);
+    });
+}
+###############################################
+// ❌ بتـ import من الـ .d (TypeScript declaration file) مش من الـ package
+import PulseLoader from "./../../../node_modules/react-spinners/PulseLoader.d";
+
+// ✅ الصح
+import { PulseLoader } from "react-spinners";
+###############################################
+الـ disabled logic غلط
+// ❌ لو isLoading = true → disabled = false → يعني ممكن يضغط تاني!
+disabled={isLoading ? false : !(isDirty && isValid)}
+
+الصح
+// ✅ لو isLoading → disabled دايماً
+disabled={isLoading || !(isDirty && isValid)}
+
+منطق الـ disabled
+الحالةالنتيجةب
+load بي                        disabled ✅
+الـ form مش valid              disabled ✅
+الـ form valid ومش   loading   enabled ✅
+###############################################
+Toaster 
+###############################################
+الصح 👇
+الـ <Toaster /> لازم يكون موجود وبتستدعي toast.success() في الـ logic مش في الـ JSX:
+jsximport toast, { Toaster } from "react-hot-toast";
+
+// 1. حط الـ Toaster في الـ JSX
+return (
+  <>
+    <Toaster position="top-center" />
+    {/* باقي الكود */}
+  </>
+);
+
+// 2. استخدم toast في الـ onSubmit مش في الـ JSX
+function onSubmit(data) {
+  axios
+    .post("https://fakestoreapi.com/auth/login", data)
+    .then((res) => {
+      toast.success("Welcome! 🎉"); // ✅ هنا
+      navigate("/");
+    })
+    .catch((err) => {
+      toast.error(err.message); // ✅ هنا
+    });
+}
+###############################################
+صح ✅ — بما إنك بتستخدم toast دلوقتي، الـ isSuccess و errorMsg مش محتاجهم خالص.
+
+امسحهم من الـ useState
+jsx// ❌ امسح دول
+const [isSuccess, setIsSuccess] = useState(false);
+const [errorMsg, setErrorMsg] = useState(null);
+وامسح استخدامهم في الـ onSubmit
+jsx.then((res) => {
+    // ❌ امسح
+    setIsSuccess(true);
+    setErrorMsg(null);
+    setTimeout(() => {
+      setIsSuccess(false); // ❌ امسح
+      navigate("/");
+    }, 2000);
+
+    // ✅ خلي بس دول
+    toast.success("Welcome");
+    setTimeout(() => navigate("/"), 2000);
+})
+.catch((err) => {
+    // ❌ امسح
+    setErrorMsg(err.response.data);
+    setIsSuccess(false);
+    setTimeout(() => setErrorMsg(null), 2000);
+
+    // ✅ خلي بس ده
+    toast.error(err.response.data);
+})
+
+وفيه ملاحظة كمان ⚠️
+reset مش بييجي من formState:
+jsx// ❌ غلط
+const { formState: { isDirty, isValid, errors, reset } } = useForm();
+
+// ✅ صح — reset بييجي برا formState
+const { register, handleSubmit, reset, formState: { isDirty, isValid, errors } } = useForm();
+###############################################
+ — err.response.data ممكن يكسر الـ app
+لو في network error مش هيبقى في err.response خالص:
+js.catch((err) => {
+  // ❌ لو network error → err.response = undefined → crash
+  toast.error(err.response.data);
+
+  // ✅ الأأمن
+  toast.error(err.response?.data || err.message);
+})
+###############################################
+Context-theory - lifting state up -> prop drilling (2 levels), context API, createContext, useContext 
+  STEPS 
+    - Make a wrapper (provider&consumer)
+  value={{counter,setCounter}} NOt prefered
+Token, how to decrypt it and why we need it 
+  -> ONLY indication that there is authenticated user existed 
+  -> headers, payload and signature
+ِApplying context to store the tkn + why we need localStorage 
+###############################################
+آه ✅ ده أفضل — ده الـ pattern الصح في React لأن:
+
+ليه أفضل؟
+ملف واحدملفينFast Refresh❌ بيعمل error✅ شغالالـ importsممكن تتداخلواضحة ومنظمةالـ separation of concerns❌✅
+
+الـ structure الصح
+src/
+├── context/
+│   ├── authContext.js          // createContext فقط
+│   └── AuthContextProvider.jsx // الـ state والـ logic
+###############################################
+Updating navbar when user is authenticated + what is derived state 
+###############################################
+Derived State
+ازاي !! بتشتغل
+js!!null          // false  ← مفيش token
+!!"eyJhbGci"   // true   ← في token
+!!""            // false  ← string فاضي
+
+استخدامها في الـ Navbar مثلاً
+jsxconst { isLoggedIn, setUserTkn } = useContext(authContext);
+
+// ✅ بدل ما تتحقق من الـ token نفسه
+{isLoggedIn ? (
+  <button onClick={() => {
+    setUserTkn(null);
+    localStorage.removeItem("userTkn");
+  }}>
+    Logout
+  </button>
+) : (
+  <Link to="/login">Login</Link>
+)}
+###############################################
+Protected Route 
+
+if (isUserLoggedIn) {
+    return children;
+  } else {
+    return <Navigate to="/login" />;
+  }
+
+هل تستخدم isLoggedIn بدله؟
+آه أنظف ✅
+jsx// ✅ باستخدام الـ derived state
+function ProtectedRoute({ children }) {
+  const { isLoggedIn } = useContext(authContext);
+
+  return isLoggedIn ? children : <Navigate to="/login" />;
+}
+###############################################
+في ملفات JavaScript / React
+اكتباضغطبيعمل إيهarrowTabarrow functionnfnTabnamed functionanfnTabnamed arrow function
+
+الأشهر مع ES7 Extension
+لو عندك ES7+ React/Redux/React-Native snippets:
+js// اكتب
+anfn + Tab
+
+// بيطلع
+const functionName = (params) => {
+
+}
+
+لو مش عندك الـ Extension — نزله دلوقتي
+ES7+ React/Redux/React-Native snippets
+ابحث عنه في الـ Extensions Ctrl + Shift + X
+
+أهم الـ Snippets بتاعته
+اكتببيطلع
+rafce React Arrow Function Component
+rfc  React Function Component 
+anfn Arrow Named Function 
+nfn  Named Function
+clg  console.log()
+imp  import statement
+###############################################
+handle logout
+Handling user Refresh
+  -> How to detect user refresh
+    const { clearTkn } = useContext(authContext);
+    
+  useEffect(() => {
+    console.log("User refresh the app!");
+    const localValue = localStorage.getItem("userTkn");
+
+    if (!localValue) {
+      clearTkn();
+    }
+  }, []);
+###############################################
+React slick
+React Query
+  -> lib to apply state management 
+  -> manage the calling time + caching (Not real caching caching within your app )
+  -> Steps 
+    -> Make a wrapper to APP (QueryClientProvider)
+  -> useQuery()
+    -> Will do all the work for you from handling fetch requests to caching
+  -> QueryClient, querykey,  queryFn, data, isLoading, isError
+  -> How caching will work
+  -> handle then, catch and finally 
+  -> if(isLoading) return ...
+     if(isError) return ... 
+     const data = data.data.posts , here i am sure that 2 checks done successfully so optional chaining not needed 
+  -> when the reactQuery returns the cached data at the same moment it requests the API to get the data 
+     so if there are diff it will update the old one
+  -> isLoading and isFetching 
+  -> reaxt-query-devtools 
+  -> refetchOnMount, gctime, refetchOnWindowfocus, staleTime, inactive, refetschInterval, 
+     retry (default 3 times ), retryDelay, refetchOnReconnect, enabled, refetch[make enabled with true] 
+  -> real usecase for enabled:isUserAuthenticated form authContext
+  -> real usecase for enabled:isUserAuthenticated && admin form authContext
+###############################################
+One of the most methods to transfer data bet pages -> path parans useParams hook
+  -> {path:'postDetails/:id',element:<><>}
+  const id=useParams();
+  axios.get('https:..........${id})
+###############################################
+React detect offline 
+React helmet 
+lazy loading
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div className="p-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+          {recipes?.map((recipe) => (
+            <div
+              key={recipe.id}
+              className="group bg-white rounded-2xl overflow-hidden border border-gray-100 hover:-translate-y-1 transition-transform duration-200 cursor-pointer"
+            >
+              {/* Image */}
+              <div className="relative overflow-hidden aspect-4/3">
+                <img
+                  src={recipe.strMealThumb}
+                  alt={recipe.strMeal}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <span className="absolute top-2 left-2 bg-white/90 text-gray-700 text-xs font-medium px-3 py-1 rounded-full">
+                  ⭐ Featured
+                </span>
+              </div>
+
+              {/* Body */}
+              <div className="p-3">
+                <h2 className="font-semibold text-gray-800 text-sm leading-snug line-clamp-2 mb-2">
+                  {recipe.strMeal}
+                </h2>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs bg-gray-100 text-gray-500 px-2 py-1 rounded-full">
+                    {recipe.category ?? "Recipe"}
+                  </span>
+                  <button className="w-7 h-7 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:bg-gray-50 transition">
+                    ♡
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>

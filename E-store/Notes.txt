@@ -1,0 +1,108 @@
+how in tailwind 
+
+  transition: all 0.3s;
+21:07
+jsx
+<div className="transition-all duration-300">
+الجدول الكامل
+CSS	Tailwind
+transition: all 0.3s	transition-all duration-300
+transition-property: all	transition-all
+transition-duration: 0.3s	duration-300
+transition-timing-function: ease	ease-linear / ease-in / ease-out / ease-in-out
+###########################################
+text-decoration-none in tailwind -> no-underline
+boder border-1  in tailwind -> just border
+##########################################
+  {imgSrcs.map((imgSrc) => (
+                  <picture>
+                    <img
+                      src={imgSrc}
+                      className="mt-7.5 w-full h-125 object-cover rounded-[30px]"
+                      alt=""
+                    />
+                  </picture>
+                ))}
+
+                <picture>
+                  <img src={clothes} alt="" />
+                </picture>
+                <picture>
+                  <img src={electronics} alt="" />
+                </picture>
+                <picture>
+                  <img src={furniture} alt="" />
+                </picture>
+                <picture>
+                  <img src={shoes} alt="" />
+                </picture>
+
+                const imgInfo = [
+  { imgSrc: clothes, imgAlt: "Clothes category" },
+  { imgSrc: electronics, imgAlt: "Electronics category" },
+  { imgSrc: furniture, imgAlt: "Furniture category" },
+  { imgSrc: shoes, imgAlt: "Shoes category" },
+];
+
+  {imgInfo.map((img, index) => (
+                  <picture key={index}>
+                    <img
+                      src={img.imgSrc}
+                      className="mt-7.5 w-full h-125 object-cover rounded-[30px]"
+                      alt={img.imgAlt}
+                    />
+                  </picture>
+                ))}
+##########################################
+slider styles mt- w-full h-500px object-cover rounded-30px
+##########################################
+bg-red-600  hover:bg-red-700 transition-colors duration-300
+ - هنا ال (hover) على اللون لازم تعمل transition-colors and duration-300
+##########################################
+{prod.title.split(" ").slice(0, 2).join(" ")}
+ - here to extract just the first two words
+##########################################
+{prod.line-clamp-2}
+##########################################
+// ❌ ده CSS syntax مش Tailwind
+hover:scale(1.2)
+
+// ✅
+hover:scale-120
+##########################################
+// ❌
+-z-1
+
+// ✅ القيم المتاحة
+-z-10
+z-0
+##########################################
+// ❌
+hocver:z-9999
+
+// ✅
+hover:z-50  // أعلى قيمة default
+##########################################
+absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+  -> to center  loader 
+##########################################
+  const productRating = (rate) => {
+    const stars = [];
+    const fullStarsCount = Math.floor(rate);
+    const hasHalf = rate % 1 >= 0.5;
+
+    for (let i = 1; i <= 5; i++) {
+      if (i <= fullStarsCount) {
+        stars.push(<FaStar key={i} color="gold" />);
+      } else if (i === fullStarsCount + 1 && hasHalf) {
+        stars.push(<FaStarHalfAlt key={i} color="gold" />);
+      } else {
+        stars.push(<FaRegStar key={i} color="gold" />);
+      }
+    }
+
+    return stars;
+  };
+##########################################
+
+  

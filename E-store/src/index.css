@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@import "./assets/fonts/fonts.css";
+
+.exo-font {
+  font-family: "Exo-font";
+}
+
+.roboto-font {
+  font-family: "Roboto-font";
+}

@@ -1,0 +1,13 @@
+@font-face {
+  font-family: "Exo-font";
+  src: url("./Exo_2/Exo2-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto-font";
+  src: url("./Roboto_Flex/second.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
